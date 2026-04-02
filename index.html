@@ -10,7 +10,7 @@
 
   <header class="site-header">
     <h1>단위 변환기</h1>
-    <p class="site-description">길이 · 무게 · 부피 · 온도 · 속도 · 면적을 간편하게 변환하세요</p>
+    <p class="site-description">길이 · 무게 · 부피 · 온도 · 속도 · 면적 · 데이터 크기를 간편하게 변환하세요</p>
   </header>
 
   <main class="converter-container">
@@ -178,6 +178,37 @@
         </select>
         <button class="convert-button" id="area-button">변환</button>
         <span class="result-display" id="area-result"></span>
+      </div>
+    </section>
+
+    <!-- 데이터 크기 변환 섹션 -->
+    <section class="converter-section" id="section-dataSize">
+      <h2 class="section-title">💾 데이터 크기</h2>
+      <div class="converter-form">
+        <input
+          type="number"
+          id="dataSize-input"
+          class="value-input"
+          placeholder="값 입력"
+          step="any"
+        />
+        <select id="dataSize-from" class="unit-select">
+          <option value="B" selected>B (바이트)</option>
+          <option value="KB">KB (킬로바이트)</option>
+          <option value="MB">MB (메가바이트)</option>
+          <option value="GB">GB (기가바이트)</option>
+          <option value="TB">TB (테라바이트)</option>
+        </select>
+        <span class="arrow-label">→</span>
+        <select id="dataSize-to" class="unit-select">
+          <option value="B">B (바이트)</option>
+          <option value="KB">KB (킬로바이트)</option>
+          <option value="MB" selected>MB (메가바이트)</option>
+          <option value="GB">GB (기가바이트)</option>
+          <option value="TB">TB (테라바이트)</option>
+        </select>
+        <button class="convert-button" id="dataSize-button">변환</button>
+        <span class="result-display" id="dataSize-result"></span>
       </div>
     </section>
 
