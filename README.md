@@ -88,6 +88,14 @@ npx serve .
 # http://localhost:3000
 ```
 
+**VS Code Live Server 확장 사용:**
+```
+1. VS Code에서 프로젝트 폴더를 열기
+2. Live Server 확장 설치 (Extensions > "Live Server" 검색)
+3. index.html 파일에서 우클릭 → "Open with Live Server" 클릭
+4. 브라우저에서 http://127.0.0.1:5500 자동 접속
+```
+
 ---
 
 ## 프로젝트 구조
@@ -108,3 +116,8 @@ test-web-service/
 2. 변환할 값을 입력 필드에 입력합니다.
 3. 변환할 원본 단위와 목표 단위를 선택합니다.
 4. **변환** 버튼을 클릭하면 결과가 폼 옆에 즉시 표시됩니다.
+
+---
+
+> 외부 라이브러리나 빌드 도구 없이 순수 HTML/CSS/JS로 동작하므로,  
+> 인터넷 연결 없이도 로컬에서 완전히 사용할 수 있습니다.
