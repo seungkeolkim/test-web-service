@@ -61,6 +61,23 @@ const AREA_TO_SQM = {
 };
 
 /**
+ * 데이터 크기 단위를 기준 단위(B, 바이트)로 변환하는 계수 테이블
+ * 각 값은 해당 단위 1단위 = 몇 바이트인지를 나타냄
+ *   B  : 기준 단위 (1)
+ *   KB : 1 KB = 1024 B
+ *   MB : 1 MB = 1024² B = 1,048,576 B
+ *   GB : 1 GB = 1024³ B = 1,073,741,824 B
+ *   TB : 1 TB = 1024⁴ B = 1,099,511,627,776 B
+ */
+const DATA_SIZE_TO_BYTE = {
+  'B':  1,
+  'KB': 1024,
+  'MB': 1024 ** 2,
+  'GB': 1024 ** 3,
+  'TB': 1024 ** 4,
+};
+
+/**
  * 카테고리별 변환 계수 테이블을 반환한다
  * 온도(temperature)는 선형 계수 방식이 아니므로 null을 반환한다
  *
@@ -73,8 +90,9 @@ function getConversionTable(category) {
     case 'weight': return WEIGHT_TO_KG;
     case 'volume': return VOLUME_TO_LITER;
     case 'speed':  return SPEED_TO_MS;
-    case 'area':   return AREA_TO_SQM;
-    default:       return null;
+    case 'area':     return AREA_TO_SQM;
+    case 'dataSize': return DATA_SIZE_TO_BYTE;
+    default:         return null;
   }
 }
 
@@ -254,7 +272,7 @@ function handleConvert(category) {
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
-  const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area'];
+  const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
     // 변환 버튼 클릭 이벤트 등록
