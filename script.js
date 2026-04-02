@@ -38,9 +38,10 @@ const VOLUME_TO_LITER = {
 
 /**
  * 카테고리별 변환 계수 테이블을 반환한다
+ * 온도(temperature)는 선형 계수 방식이 아니므로 null을 반환한다
  *
- * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume')
- * @returns {Object|null} 해당 카테고리의 변환 계수 테이블, 알 수 없는 카테고리면 null
+ * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume' | 'temperature')
+ * @returns {Object|null} 해당 카테고리의 변환 계수 테이블, 온도 또는 알 수 없는 카테고리면 null
  */
 function getConversionTable(category) {
   switch (category) {
@@ -52,22 +53,81 @@ function getConversionTable(category) {
 }
 
 /**
+ * 온도 값을 fromUnit에서 toUnit으로 변환한다
+ *
+ * 지원 단위: '°C' (섭씨), '°F' (화씨), 'K' (켈빈)
+ * 변환 공식:
+ *   °C → °F : F = C × 9/5 + 32
+ *   °F → °C : C = (F - 32) × 5/9
+ *   °C → K  : K = C + 273.15
+ *   K  → °C : C = K - 273.15
+ *   °F ↔ K  : °C를 중간 단위로 경유하여 변환
+ *
+ * @param {number} value    - 변환할 값
+ * @param {string} fromUnit - 입력 단위 ('°C' | '°F' | 'K')
+ * @param {string} toUnit   - 출력 단위 ('°C' | '°F' | 'K')
+ * @returns {number|null} 변환된 값(소수점 최대 6자리 반올림), 지원하지 않는 단위면 null
+ */
+function convertTemperature(value, fromUnit, toUnit) {
+  const supportedUnits = ['°C', '°F', 'K'];
+
+  if (!supportedUnits.includes(fromUnit) || !supportedUnits.includes(toUnit)) {
+    // 지원하지 않는 온도 단위
+    return null;
+  }
+
+  // 동일 단위면 입력값 그대로 반환 (convert() 최상단에서도 처리하지만 방어적으로 포함)
+  if (fromUnit === toUnit) {
+    return parseFloat(value.toFixed(6));
+  }
+
+  // 1단계: fromUnit → 섭씨(°C)로 정규화
+  let celsius;
+  if (fromUnit === '°C') {
+    celsius = value;
+  } else if (fromUnit === '°F') {
+    celsius = (value - 32) * 5 / 9;
+  } else {
+    // K → °C
+    celsius = value - 273.15;
+  }
+
+  // 2단계: 섭씨(°C) → toUnit으로 변환
+  let result;
+  if (toUnit === '°C') {
+    result = celsius;
+  } else if (toUnit === '°F') {
+    result = celsius * 9 / 5 + 32;
+  } else {
+    // °C → K
+    result = celsius + 273.15;
+  }
+
+  return parseFloat(result.toFixed(6));
+}
+
+/**
  * 지정된 카테고리에서 숫자 값을 fromUnit에서 toUnit으로 변환한다
  *
  * 변환 방식:
- *   1. fromUnit → 기준 단위 (계수 곱하기)
- *   2. 기준 단위 → toUnit (계수 나누기)
+ *   - 길이/무게/부피: fromUnit → 기준 단위 (계수 곱하기) → toUnit (계수 나누기)
+ *   - 온도: convertTemperature()에 위임 (비선형 공식 사용)
  *
- * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume')
+ * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume' | 'temperature')
  * @param {number} value    - 변환할 값
- * @param {string} fromUnit - 입력 단위 (예: 'cm', 'kg', 'L')
- * @param {string} toUnit   - 출력 단위 (예: 'inch', 'lb', 'gal')
+ * @param {string} fromUnit - 입력 단위 (예: 'cm', 'kg', 'L', '°C')
+ * @param {string} toUnit   - 출력 단위 (예: 'inch', 'lb', 'gal', '°F')
  * @returns {number|null} 변환된 값(소수점 최대 6자리 반올림), 오류 시 null
  */
 function convert(category, value, fromUnit, toUnit) {
   // 입력값 유효성 검사
   if (typeof value !== 'number' || isNaN(value)) {
     return null;
+  }
+
+  // 온도는 선형 계수 방식이 아니므로 별도 함수로 처리
+  if (category === 'temperature') {
+    return convertTemperature(value, fromUnit, toUnit);
   }
 
   const conversionTable = getConversionTable(category);
@@ -94,11 +154,17 @@ function convert(category, value, fromUnit, toUnit) {
 
 /**
  * 특정 카테고리에서 지원하는 단위 목록을 반환한다
+ * 온도는 계수 테이블을 사용하지 않으므로 단위 목록을 직접 반환한다
  *
- * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume')
+ * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume' | 'temperature')
  * @returns {string[]} 지원 단위 배열, 알 수 없는 카테고리면 빈 배열
  */
 function getSupportedUnits(category) {
+  // 온도는 계수 테이블이 없으므로 단위 목록을 직접 반환
+  if (category === 'temperature') {
+    return ['°C', '°F', 'K'];
+  }
+
   const conversionTable = getConversionTable(category);
   if (conversionTable === null) {
     return [];
@@ -162,7 +228,7 @@ function handleConvert(category) {
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
-  const categories = ['length', 'weight', 'volume'];
+  const categories = ['length', 'weight', 'volume', 'temperature'];
 
   categories.forEach(function (category) {
     // 변환 버튼 클릭 이벤트 등록
