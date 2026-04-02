@@ -1,0 +1,178 @@
+/* ===================================================
+   단위 변환기 스타일시트
+   전체 레이아웃, 섹션, 폼, 결과 표시 영역을 정의합니다
+   =================================================== */
+
+/* 기본 리셋 및 폰트 설정 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  min-height: 100vh;
+  padding: 40px 20px 60px;
+}
+
+/* ===================================================
+   헤더
+   =================================================== */
+.site-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.site-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.5px;
+}
+
+.site-description {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* ===================================================
+   메인 컨테이너: 섹션들을 세로로 나열
+   =================================================== */
+.converter-container {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===================================================
+   변환 섹션 카드
+   =================================================== */
+.converter-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8eaf0;
+}
+
+/* ===================================================
+   변환 폼: 한 줄로 배치 (flex)
+   =================================================== */
+.converter-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 숫자 입력 필드 */
+.value-input {
+  width: 130px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 1.5px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  color: #333;
+}
+
+.value-input:focus {
+  border-color: #4a90d9;
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.15);
+}
+
+/* 단위 선택 드롭다운 */
+.unit-select {
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border: 1.5px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  color: #333;
+  /* 브라우저 기본 화살표 대신 커스텀 화살표 */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+.unit-select:focus {
+  border-color: #4a90d9;
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.15);
+}
+
+/* 화살표 구분자 (→) */
+.arrow-label {
+  font-size: 1.1rem;
+  color: #999;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* 변환 버튼 */
+.convert-button {
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #4a90d9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  flex-shrink: 0;
+}
+
+.convert-button:hover {
+  background-color: #3a7ec5;
+}
+
+.convert-button:active {
+  background-color: #2f6eaf;
+  transform: scale(0.97);
+}
+
+/* ===================================================
+   결과 표시 영역
+   =================================================== */
+.result-display {
+  /* 기본 상태에서는 빈 공간을 차지하지 않음 */
+  display: inline-block;
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+
+/* 정상 결과 */
+.result-display.result-value {
+  color: #2e7d32;
+}
+
+/* 오류 메시지 */
+.result-display.result-error {
+  color: #c62828;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
