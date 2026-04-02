@@ -37,10 +37,21 @@ const VOLUME_TO_LITER = {
 };
 
 /**
+ * 속도 단위를 기준 단위(m/s, 미터/초)로 변환하는 계수 테이블
+ * 각 값은 해당 단위 1단위 = 몇 m/s인지를 나타냄
+ */
+const SPEED_TO_MS = {
+  'km/h': 1 / 3.6,
+  'mph':  0.44704,
+  'm/s':  1,
+  'knot': 0.514444,
+};
+
+/**
  * 카테고리별 변환 계수 테이블을 반환한다
  * 온도(temperature)는 선형 계수 방식이 아니므로 null을 반환한다
  *
- * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume' | 'temperature')
+ * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume' | 'temperature' | 'speed')
  * @returns {Object|null} 해당 카테고리의 변환 계수 테이블, 온도 또는 알 수 없는 카테고리면 null
  */
 function getConversionTable(category) {
@@ -48,6 +59,7 @@ function getConversionTable(category) {
     case 'length': return LENGTH_TO_METER;
     case 'weight': return WEIGHT_TO_KG;
     case 'volume': return VOLUME_TO_LITER;
+    case 'speed':  return SPEED_TO_MS;
     default:       return null;
   }
 }
@@ -228,7 +240,7 @@ function handleConvert(category) {
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
-  const categories = ['length', 'weight', 'volume', 'temperature'];
+  const categories = ['length', 'weight', 'volume', 'temperature', 'speed'];
 
   categories.forEach(function (category) {
     // 변환 버튼 클릭 이벤트 등록
