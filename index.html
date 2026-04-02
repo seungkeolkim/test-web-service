@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>단위 변환기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>단위 변환기</h1>
+    <p class="site-description">길이 · 무게 · 부피를 간편하게 변환하세요</p>
+  </header>
+
+  <main class="converter-container">
+
+    <!-- 길이 변환 섹션 -->
+    <section class="converter-section" id="section-length">
+      <h2 class="section-title">길이 변환</h2>
+      <div class="converter-form">
+        <input
+          type="number"
+          id="length-input"
+          class="value-input"
+          placeholder="값 입력"
+          step="any"
+        />
+        <select id="length-from" class="unit-select">
+          <option value="cm">cm (센티미터)</option>
+          <option value="m">m (미터)</option>
+          <option value="km">km (킬로미터)</option>
+          <option value="inch">inch (인치)</option>
+          <option value="feet">feet (피트)</option>
+          <option value="mile">mile (마일)</option>
+        </select>
+        <span class="arrow-label">→</span>
+        <select id="length-to" class="unit-select">
+          <option value="cm">cm (센티미터)</option>
+          <option value="m">m (미터)</option>
+          <option value="km">km (킬로미터)</option>
+          <option value="inch" selected>inch (인치)</option>
+          <option value="feet">feet (피트)</option>
+          <option value="mile">mile (마일)</option>
+        </select>
+        <button class="convert-button" id="length-button">변환</button>
+        <span class="result-display" id="length-result"></span>
+      </div>
+    </section>
+
+    <!-- 무게 변환 섹션 -->
+    <section class="converter-section" id="section-weight">
+      <h2 class="section-title">무게 변환</h2>
+      <div class="converter-form">
+        <input
+          type="number"
+          id="weight-input"
+          class="value-input"
+          placeholder="값 입력"
+          step="any"
+        />
+        <select id="weight-from" class="unit-select">
+          <option value="kg">kg (킬로그램)</option>
+          <option value="lb">lb (파운드)</option>
+        </select>
+        <span class="arrow-label">→</span>
+        <select id="weight-to" class="unit-select">
+          <option value="kg">kg (킬로그램)</option>
+          <option value="lb" selected>lb (파운드)</option>
+        </select>
+        <button class="convert-button" id="weight-button">변환</button>
+        <span class="result-display" id="weight-result"></span>
+      </div>
+    </section>
+
+    <!-- 부피 변환 섹션 -->
+    <section class="converter-section" id="section-volume">
+      <h2 class="section-title">부피 변환</h2>
+      <div class="converter-form">
+        <input
+          type="number"
+          id="volume-input"
+          class="value-input"
+          placeholder="값 입력"
+          step="any"
+        />
+        <select id="volume-from" class="unit-select">
+          <option value="L">L (리터)</option>
+          <option value="gal">gal (갤런)</option>
+        </select>
+        <span class="arrow-label">→</span>
+        <select id="volume-to" class="unit-select">
+          <option value="L">L (리터)</option>
+          <option value="gal" selected>gal (갤런)</option>
+        </select>
+        <button class="convert-button" id="volume-button">변환</button>
+        <span class="result-display" id="volume-result"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 변환 로직 및 DOM 이벤트 바인딩 -->
+  <script src="script.js"></script>
+
+</body>
+</html>
