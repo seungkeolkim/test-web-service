@@ -16,6 +16,7 @@
 | 길이 | cm, m, km, inch, feet, mile |
 | 무게 | kg, pound (lb) |
 | 부피 | 리터 (L), 갤런 (gal) |
+| 온도 | °C, °F, K |
 | 속도 (Speed) | km/h, mph, m/s, knot |
 | 면적 (Area) | m², ft², 평(pyeong) |
 | 데이터 크기 | B, KB, MB, GB, TB |
