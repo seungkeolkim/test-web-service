@@ -48,6 +48,19 @@ const SPEED_TO_MS = {
 };
 
 /**
+ * 면적 단위를 기준 단위(m², 제곱미터)로 변환하는 계수 테이블
+ * 각 값은 해당 단위 1단위 = 몇 m²인지를 나타냄
+ *   m²   : 기준 단위 (1)
+ *   ft²  : 1 ft² = 0.09290304 m²
+ *   pyeong(평): 1평 = 3.305785 m²
+ */
+const AREA_TO_SQM = {
+  'm2':     1,
+  'ft2':    0.09290304,
+  'pyeong': 3.305785,
+};
+
+/**
  * 카테고리별 변환 계수 테이블을 반환한다
  * 온도(temperature)는 선형 계수 방식이 아니므로 null을 반환한다
  *
@@ -60,6 +73,7 @@ function getConversionTable(category) {
     case 'weight': return WEIGHT_TO_KG;
     case 'volume': return VOLUME_TO_LITER;
     case 'speed':  return SPEED_TO_MS;
+    case 'area':   return AREA_TO_SQM;
     default:       return null;
   }
 }
@@ -240,7 +254,7 @@ function handleConvert(category) {
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
-  const categories = ['length', 'weight', 'volume', 'temperature', 'speed'];
+  const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area'];
 
   categories.forEach(function (category) {
     // 변환 버튼 클릭 이벤트 등록
