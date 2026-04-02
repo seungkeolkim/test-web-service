@@ -43,7 +43,7 @@
           <option value="feet">feet (피트)</option>
           <option value="mile">mile (마일)</option>
         </select>
-        <button class="convert-button" onclick="handleConvert('length')">변환</button>
+        <button class="convert-button" id="length-button">변환</button>
         <span class="result-display" id="length-result"></span>
       </div>
     </section>
@@ -68,7 +68,7 @@
           <option value="kg">kg (킬로그램)</option>
           <option value="lb" selected>lb (파운드)</option>
         </select>
-        <button class="convert-button" onclick="handleConvert('weight')">변환</button>
+        <button class="convert-button" id="weight-button">변환</button>
         <span class="result-display" id="weight-result"></span>
       </div>
     </section>
@@ -93,76 +93,15 @@
           <option value="L">L (리터)</option>
           <option value="gal" selected>gal (갤런)</option>
         </select>
-        <button class="convert-button" onclick="handleConvert('volume')">변환</button>
+        <button class="convert-button" id="volume-button">변환</button>
         <span class="result-display" id="volume-result"></span>
       </div>
     </section>
 
   </main>
 
-  <!-- script.js의 convert() 함수를 먼저 로드한 뒤 DOM 이벤트 처리 -->
+  <!-- 변환 로직 및 DOM 이벤트 바인딩 -->
   <script src="script.js"></script>
-  <script>
-    /**
-     * 변환 버튼 클릭 시 호출되는 핸들러
-     * script.js의 convert() 함수를 사용하여 결과를 계산하고 화면에 표시한다
-     *
-     * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume')
-     */
-    function handleConvert(category) {
-      const inputElement  = document.getElementById(category + '-input');
-      const fromElement   = document.getElementById(category + '-from');
-      const toElement     = document.getElementById(category + '-to');
-      const resultElement = document.getElementById(category + '-result');
-
-      const inputValue = parseFloat(inputElement.value);
-
-      // 입력값 유효성 검사
-      if (inputElement.value.trim() === '' || isNaN(inputValue)) {
-        resultElement.textContent = '숫자를 입력해주세요';
-        resultElement.classList.add('result-error');
-        resultElement.classList.remove('result-value');
-        return;
-      }
-
-      const fromUnit = fromElement.value;
-      const toUnit   = toElement.value;
-
-      // 같은 단위끼리 변환하는 경우
-      if (fromUnit === toUnit) {
-        resultElement.textContent = inputValue + ' ' + toUnit;
-        resultElement.classList.add('result-value');
-        resultElement.classList.remove('result-error');
-        return;
-      }
-
-      // script.js의 convert() 함수로 변환 수행
-      const convertedValue = convert(category, inputValue, fromUnit, toUnit);
-
-      if (convertedValue === null) {
-        // 변환 실패 (지원하지 않는 단위 등)
-        resultElement.textContent = '변환 오류';
-        resultElement.classList.add('result-error');
-        resultElement.classList.remove('result-value');
-      } else {
-        resultElement.textContent = convertedValue + ' ' + toUnit;
-        resultElement.classList.add('result-value');
-        resultElement.classList.remove('result-error');
-      }
-    }
-
-    /**
-     * 입력 필드에서 Enter 키를 눌렀을 때 변환을 실행한다
-     * 각 카테고리의 입력 필드에 이벤트 리스너를 등록한다
-     */
-    ['length', 'weight', 'volume'].forEach(function(category) {
-      document.getElementById(category + '-input').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-          handleConvert(category);
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>

@@ -105,3 +105,82 @@ function getSupportedUnits(category) {
   }
   return Object.keys(conversionTable);
 }
+
+// ─────────────────────────────────────────────
+// DOM 이벤트 바인딩
+// ─────────────────────────────────────────────
+
+/**
+ * 변환 버튼 클릭 시 호출되는 핸들러
+ *
+ * 해당 카테고리의 입력값·출발 단위·도착 단위를 읽어
+ * convert() 함수로 계산한 뒤 결과 영역에 텍스트를 표시한다.
+ * 빈 입력이나 숫자가 아닌 값은 사용자 친화적 오류 메시지로 처리한다.
+ *
+ * @param {string} category - 변환 카테고리 ('length' | 'weight' | 'volume')
+ */
+function handleConvert(category) {
+  const inputElement  = document.getElementById(category + '-input');
+  const fromElement   = document.getElementById(category + '-from');
+  const toElement     = document.getElementById(category + '-to');
+  const resultElement = document.getElementById(category + '-result');
+
+  const rawValue   = inputElement.value.trim();
+  const inputValue = parseFloat(rawValue);
+
+  // 빈 입력 또는 숫자가 아닌 값 처리
+  if (rawValue === '' || isNaN(inputValue)) {
+    resultElement.textContent = '숫자를 입력해주세요';
+    resultElement.className   = 'result-display result-error';
+    return;
+  }
+
+  const fromUnit = fromElement.value;
+  const toUnit   = toElement.value;
+
+  // 같은 단위끼리 변환하는 경우 입력값 그대로 표시
+  if (fromUnit === toUnit) {
+    resultElement.textContent = inputValue + ' ' + toUnit;
+    resultElement.className   = 'result-display result-value';
+    return;
+  }
+
+  // convert() 함수로 변환 수행
+  const convertedValue = convert(category, inputValue, fromUnit, toUnit);
+
+  if (convertedValue === null) {
+    // 지원하지 않는 단위 등 변환 실패
+    resultElement.textContent = '변환 오류가 발생했습니다';
+    resultElement.className   = 'result-display result-error';
+  } else {
+    resultElement.textContent = convertedValue + ' ' + toUnit;
+    resultElement.className   = 'result-display result-value';
+  }
+}
+
+/**
+ * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  const categories = ['length', 'weight', 'volume'];
+
+  categories.forEach(function (category) {
+    // 변환 버튼 클릭 이벤트 등록
+    const convertButton = document.getElementById(category + '-button');
+    if (convertButton) {
+      convertButton.addEventListener('click', function () {
+        handleConvert(category);
+      });
+    }
+
+    // 입력 필드에서 Enter 키를 눌러도 변환 실행
+    const inputField = document.getElementById(category + '-input');
+    if (inputField) {
+      inputField.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          handleConvert(category);
+        }
+      });
+    }
+  });
+});
