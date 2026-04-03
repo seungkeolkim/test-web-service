@@ -12,7 +12,7 @@
 
 body {
   font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
-  background-color: #f0f2f5;
+  background-color: #ADD8E6; /* 라이트 블루 - 기존 배경색에서 파란색 계열로 변경 */
   color: #333;
   min-height: 100vh;
   padding: 40px 20px 60px;
