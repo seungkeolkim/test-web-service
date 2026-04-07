@@ -12,10 +12,15 @@
 
 body {
   font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+  /* 이미지 로딩 전 폴백 배경색 */
   background-color: #f0f2f5;
   color: #333;
   min-height: 100vh;
   padding: 40px 20px 60px;
+  /* 랜덤 배경 이미지 설정 (script.js에서 동적으로 backgroundImage 주입) */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /* ===================================================
@@ -23,6 +28,16 @@ body {
    =================================================== */
 .site-header {
   text-align: center;
+  margin-bottom: 40px;
+  /* 배경 이미지 위에서 가독성 확보를 위해 반투명 배경 적용 */
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 24px 32px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 40px;
 }
 
@@ -54,7 +69,10 @@ body {
    변환 섹션 카드
    =================================================== */
 .converter-section {
-  background-color: #ffffff;
+  /* 배경 이미지 위에서 텍스트 가독성 확보를 위해 반투명 배경 적용 */
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 12px;
   padding: 28px 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
