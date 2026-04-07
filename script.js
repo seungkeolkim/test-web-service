@@ -269,9 +269,25 @@ function handleConvert(category) {
 }
 
 /**
+ * picsum.photos에서 랜덤 이미지를 가져와 body 배경으로 설정한다
+ *
+ * 매 페이지 로드마다 다른 이미지가 표시되도록 타임스탬프 쿼리 파라미터를 추가한다.
+ * 이미지 로딩 실패 시 style.css에 정의된 폴백 배경색(#f0f2f5)이 유지된다.
+ */
+function loadRandomBackgroundImage() {
+  // 타임스탬프를 쿼리 파라미터로 추가하여 브라우저 캐시를 우회하고 매번 다른 이미지를 요출
+  const timestamp = Date.now();
+  const imageUrl = 'https://picsum.photos/1920/1080?t=' + timestamp;
+  document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+}
+
+/**
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
+  // 랜덤 배경 이미지 로드
+  loadRandomBackgroundImage();
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
