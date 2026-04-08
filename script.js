@@ -290,6 +290,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
+  // 우클릭 시 기본 컨텍스트 메뉴가 표시되지 않도록 차단
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
   categories.forEach(function (category) {
     // 변환 버튼 클릭 이벤트 등록
     const convertButton = document.getElementById(category + '-button');
