@@ -42,7 +42,7 @@ open_browser() {
 }
 
 # 서버 시작 후 잠시 대기하고 브라우저 열기
-(sleep 1 && open_browser) &
+# (sleep 1 && open_browser) &
 
 # Python3 내장 HTTP 서버로 현재 디렉토리를 서빙
 python3 -m http.server "${PORT}"
