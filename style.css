@@ -27,7 +27,9 @@ body {
    더미 버튼
    =================================================== */
 .dummy-button-wrapper {
-  /* 페이지 최상단에 좌측 정렬로 배치 */
+  /* 페이지 최상단에 좌측 정렬로 배치, 버튼들을 가로로 나란히 배치 */
+  display: flex;
+  gap: 8px;
   padding: 12px 20px 0;
   max-width: 820px;
   margin: 0 auto;
