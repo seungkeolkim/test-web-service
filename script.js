@@ -282,11 +282,64 @@ function loadRandomBackgroundImage() {
 }
 
 /**
+ * 마우스 클릭 좌표에 폭탄 폭발 애니메이션 이펙트를 생성한다
+ *
+ * 중심 플래시(flash) 1개와 방사형으로 퍼지는 파편(particle) 8개로 구성된다.
+ * 애니메이션 완료 후 자동으로 DOM에서 제거하여 메모리 누수를 방지한다.
+ *
+ * @param {number} clientX - 클릭한 뷰포트 기준 X 좌표 (px)
+ * @param {number} clientY - 클릭한 뷰포트 기준 Y 좌표 (px)
+ */
+function createExplosionEffect(clientX, clientY) {
+  // 이펙트 컨테이너 생성 및 클릭 좌표에 고정 배치
+  const explosionContainer = document.createElement('div');
+  explosionContainer.className = 'explosion-container';
+  explosionContainer.style.left = clientX + 'px';
+  explosionContainer.style.top  = clientY + 'px';
+
+  // 중심 플래시 요소 추가
+  const flashElement = document.createElement('div');
+  flashElement.className = 'explosion-flash';
+  explosionContainer.appendChild(flashElement);
+
+  // 8개의 파편 파티클을 45도 간격으로 방사형 배치
+  const PARTICLE_COUNT = 8;
+  // 파티클 색상: 폭발 느낌의 주황~빨강~노랑 계열
+  const particleColors = ['#ff4500', '#ff6600', '#ff8c00', '#ffd700', '#ff2200', '#ffaa00', '#ff0000', '#ff5500'];
+
+  for (let particleIndex = 0; particleIndex < PARTICLE_COUNT; particleIndex++) {
+    const particleElement = document.createElement('div');
+    particleElement.className = 'explosion-particle';
+
+    // 각 파티클의 방사 방향 각도 계산 (360도를 파티클 수로 균등 분할)
+    const particleAngleDeg = (360 / PARTICLE_COUNT) * particleIndex;
+    particleElement.style.setProperty('--particle-angle', particleAngleDeg + 'deg');
+    particleElement.style.backgroundColor = particleColors[particleIndex % particleColors.length];
+
+    explosionContainer.appendChild(particleElement);
+  }
+
+  document.body.appendChild(explosionContainer);
+
+  // 가장 긴 애니메이션(particle: 0.5s)이 끝난 뒤 DOM에서 제거
+  setTimeout(function () {
+    if (explosionContainer.parentNode) {
+      explosionContainer.parentNode.removeChild(explosionContainer);
+    }
+  }, 600);
+}
+
+/**
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
   // 랜덤 배경 이미지 로드
   loadRandomBackgroundImage();
+
+  // 마우스 클릭 시 클릭 좌표에 폭발 이펙트 표시
+  document.addEventListener('click', function (clickEvent) {
+    createExplosionEffect(clickEvent.clientX, clickEvent.clientY);
+  });
 
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
