@@ -288,6 +288,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // 랜덤 배경 이미지 로드
   loadRandomBackgroundImage();
 
+  const changeBgButton = document.getElementById('btn-change-bg');
+  if (changeBgButton) {
+    changeBgButton.addEventListener('click', function () {
+      loadRandomBackgroundImage();
+    });
+  }
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
