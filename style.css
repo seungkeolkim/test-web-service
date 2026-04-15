@@ -215,3 +215,17 @@ body {
   background-color: #2e7d32;
   transform: scale(0.97);
 }
+
+/* 두 번째 동물 버튼: 주황 계열로 첫 번째 버튼(초록)과 시각적으로 구분 */
+.animal-button-alt {
+  background-color: #f57c00;
+}
+
+.animal-button-alt:hover {
+  background-color: #ef6c00;
+}
+
+.animal-button-alt:active {
+  background-color: #e65100;
+  transform: scale(0.97);
+}

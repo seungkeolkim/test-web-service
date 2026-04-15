@@ -336,6 +336,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // animal-btn-2: 여우 버튼 → 660Hz square 파형 비프음 (0.3초)
+  // 첫 번째 버튼과 주파수(440→660)·파형(sine→square)이 달라 음색이 구분된다
+  const animalButton2 = document.getElementById('animal-btn-2');
+  if (animalButton2) {
+    animalButton2.addEventListener('click', function () {
+      playBeep(660, 'square', 0.3);
+    });
+  }
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
