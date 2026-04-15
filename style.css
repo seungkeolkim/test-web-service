@@ -12,15 +12,10 @@
 
 body {
   font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
-  /* 이미지 로딩 전 폴백 배경색 */
   background-color: #f0f2f5;
   color: #333;
   min-height: 100vh;
   padding: 40px 20px 60px;
-  /* 랜덤 배경 이미지 설정 (script.js에서 동적으로 backgroundImage 주입) */
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
 }
 
 /* ===================================================
