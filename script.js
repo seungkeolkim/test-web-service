@@ -282,11 +282,38 @@ function loadRandomBackgroundImage() {
 }
 
 /**
+ * 배경 이미지를 제거하고 배경색을 흰색으로 초기화한다
+ *
+ * btn-clear-bg 버튼 클릭 시 호출되며,
+ * loadRandomBackgroundImage()로 설정된 배경 이미지를 지우고
+ * 배경색을 흰색(#ffffff)으로 되돌린다.
+ */
+function clearBackgroundImage() {
+  document.body.style.backgroundImage = 'none';
+  document.body.style.backgroundColor = '#ffffff';
+}
+
+/**
  * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
  */
 document.addEventListener('DOMContentLoaded', function () {
   // 랜덤 배경 이미지 로드
   loadRandomBackgroundImage();
+
+  const changeBgButton = document.getElementById('btn-change-bg');
+  if (changeBgButton) {
+    changeBgButton.addEventListener('click', function () {
+      loadRandomBackgroundImage();
+    });
+  }
+
+  // 배경 이미지를 흰색으로 클리어하는 버튼 이벤트 등록
+  const clearBgButton = document.getElementById('btn-clear-bg');
+  if (clearBgButton) {
+    clearBgButton.addEventListener('click', function () {
+      clearBackgroundImage();
+    });
+  }
 
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
