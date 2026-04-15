@@ -1,0 +1,59 @@
+# PROJECT_NOTES.md
+
+> 이 파일은 Memory Updater가 관리하는 장기 메모리 문서입니다.
+> 코드 자체로 알 수 있는 내용은 기록하지 않고, 결정 근거·컨벤션·변경 흐름만 기록합니다.
+
+---
+
+## 프로젝트 개요
+
+- 순수 HTML/CSS/Vanilla JS로 구성된 단위 변환기 웹 페이지
+- DB 없음, 빌드 도구 없음, 외부 라이브러리 없음 — 클라이언트 사이드 전용
+- 지원 카테고리: 길이(length), 무게(weight), 부피(volume), 온도(temperature), 속도(speed), 면적(area), 데이터크기(dataSize) — 총 7가지
+- 로컬 실행: `bash run.sh` (Python3 기반, 기본 포트 8080, 브라우저 자동 오픈)
+
+---
+
+## 아키텍처
+
+- **파일 구조**: `index.html` (UI 마크업) / `style.css` (스타일) / `script.js` (변환 로직 + DOM 이벤트) / `run.sh` (로컬 서버 실행)
+- **변환 로직 패턴**: 선형 단위는 `{카테고리}_TO_{기준단위}` 상수 테이블을 통해 "→ 기준 단위 → 목표 단위"로 2단계 변환. 온도는 비선형이므로 `convertTemperature()` 함수로 분리 처리 (°C를 중간 단위로 경유)
+- **DOM ID 규칙**: `{category}-input`, `{category}-from`, `{category}-to`, `{category}-button`, `{category}-result` 패턴으로 일관 적용
+- **배경 이미지**: 페이지 로드 시 picsum.photos에서 랜덤 이미지를 동적으로 body에 주입. 로딩 실패 시 CSS 폴백 색(`#f0f2f5`) 유지
+- **헤더 장식 버튼**: 동물 이름 버튼들이 header에 나열됨. 대부분은 비활성(장식용)이며, `Dolphin` → 배경 이미지 변경, `Polar Bear` → 배경 흰색 클리어 기능 연결
+
+---
+
+## 컨벤션
+
+- **카테고리 식별자**: 소문자 camelCase (`length`, `weight`, `volume`, `temperature`, `speed`, `area`, `dataSize`) — DOM ID와 JS 내부 식별자 일치
+- **변환 계수 테이블 네이밍**: `{CATEGORY}_TO_{BASE_UNIT}` (예: `LENGTH_TO_METER`, `SPEED_TO_MS`)
+- **결과 표시 CSS 클래스**: 성공 시 `result-value`, 오류 시 `result-error`를 `result-display`에 추가
+- **데이터 크기 계산**: 1KB = 1024B (IEC 이진 기반) 사용 — 십진 기반(SI) 아님
+- **면적**: 한국 부동산 단위 `평(pyeong)` 지원 (1평 = 3.305785 m²)
+- **Enter 키 지원**: 모든 입력 필드에서 Enter 입력 시 변환 버튼 클릭과 동일하게 동작
+- **커밋 형식**: `[{task_id}][tg:{요청자}] {subtask_num}: {변경 내용 한 줄}`
+
+---
+
+## 주요 결정
+
+- **프레임워크 미사용**: 심플한 도구 특성상 의존성 없이 순수 HTML/CSS/JS로 유지. 빌드 파이프라인 오버헤드를 피하기 위함
+- **온도 변환 분리**: 선형 계수 방식으로 처리 불가하므로 `convertTemperature()` 별도 함수로 분리. 다른 카테고리와 패턴 통일성은 `getConversionTable()`이 `null` 반환으로 분기
+- **배경 이미지 타임스탬프 쿼리**: picsum.photos 호출 시 `?t={Date.now()}` 추가 — 브라우저 캐시 우회로 매번 다른 이미지 보장
+- **동물 이름 버튼 장식 채택**: header UI 장식 요소로 동물 이름을 사용 (기능 없는 비활성 버튼). 일부 버튼(Dolphin, Polar Bear)에는 배경 이미지 관련 기능을 연결하여 혼합 활용
+
+---
+
+## 최근 변경 이력
+
+- [00147] header에 랜덤 배경 변경(Dolphin) 및 배경 클리어(Polar Bear) 기능 버튼 추가 — 2026-04-15
+- [00146] header에 Otter 동물 이름 비활성 버튼 추가 — 2026-04-15
+- [00141] header에 Grizzly 동물 이름 비활성 버튼 추가 (panda → grizzly 변경 포함) — 2026-04-14
+- [00139] header에 Falcon 동물 이름 비활성 버튼 추가 — 2026-04-13
+- [00138] header에 동물 이름 비활성 버튼 추가 — 2026-04-13
+- [00137] 최상단 더미 버튼 전체 제거 후 동물 이름 버튼 체계로 전환 — 2026-04-13
+- [00136] 더미 버튼 추가 — 2026-04-13
+- [00135] 더미 버튼 추가 — 2026-04-13
+- [00134] 더미 버튼 추가 — 2026-04-13
+- [00133] 더미 버튼 추가 — 2026-04-13
