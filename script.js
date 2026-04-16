@@ -345,6 +345,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // animal-btn-3: 돌고래 버튼 → 880Hz triangle 파형 비프음 (0.3초)
+  // 높은 주파수(880Hz)와 삼각파(triangle)로 맑고 부드러운 고음 재생
+  const animalButton3 = document.getElementById('animal-btn-3');
+  if (animalButton3) {
+    animalButton3.addEventListener('click', function () {
+      playBeep(880, 'triangle', 0.3);
+    });
+  }
+
+  // animal-btn-4: 올빼미 버튼 → 330Hz sawtooth 파형 비프음 (0.3초)
+  // 낮은 주파수(330Hz)와 톱니파(sawtooth)로 거칠고 낮은 음색 재생
+  const animalButton4 = document.getElementById('animal-btn-4');
+  if (animalButton4) {
+    animalButton4.addEventListener('click', function () {
+      playBeep(330, 'sawtooth', 0.3);
+    });
+  }
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
