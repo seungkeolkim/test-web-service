@@ -189,3 +189,43 @@ body {
   font-weight: 400;
   font-size: 0.85rem;
 }
+
+/* ===================================================
+   동물 소리 버튼
+   .convert-button(파란 계열)과 구분되는 초록 계열 색상 사용
+   =================================================== */
+.animal-button {
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #43a047;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  flex-shrink: 0;
+}
+
+.animal-button:hover {
+  background-color: #388e3c;
+}
+
+.animal-button:active {
+  background-color: #2e7d32;
+  transform: scale(0.97);
+}
+
+/* 두 번째 동물 버튼: 주황 계열로 첫 번째 버튼(초록)과 시각적으로 구분 */
+.animal-button-alt {
+  background-color: #f57c00;
+}
+
+.animal-button-alt:hover {
+  background-color: #ef6c00;
+}
+
+.animal-button-alt:active {
+  background-color: #e65100;
+  transform: scale(0.97);
+}

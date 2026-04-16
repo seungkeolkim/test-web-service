@@ -5,6 +5,60 @@
  * DOM 조작은 이 파일에 포함되지 않으며, 순수 변환 로직만 담당합니다.
  */
 
+// ─────────────────────────────────────────────
+// Web Audio API: AudioContext (lazy 초기화)
+// 브라우저 autoplay 정책으로 인해 사용자 인터랙션 이후에만 생성 가능
+// ─────────────────────────────────────────────
+
+/** AudioContext 인스턴스 (최초 사용 시 생성, 이후 재사용) */
+let audioCtx = null;
+
+/**
+ * AudioContext를 반환한다. 아직 생성되지 않은 경우 새로 생성한다 (lazy 초기화).
+ * 브라우저 autoplay 정책에 따라 사용자 인터랙션 이후에 호출해야 한다.
+ *
+ * @returns {AudioContext} Web Audio API AudioContext 인스턴스
+ */
+function getAudioContext() {
+  if (!audioCtx) {
+    // 브라우저 호환성을 위해 webkit 접두사 버전도 대응
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return audioCtx;
+}
+
+/**
+ * 지정한 주파수·파형·길이로 비프음을 재생한다.
+ *
+ * 재생 흐름: OscillatorNode → GainNode → destination
+ * GainNode로 클릭 잡음(click noise)을 줄이기 위해 음량을 부드럽게 감소시킨다.
+ *
+ * @param {number} frequency - 재생할 주파수 (Hz). 예: 440 (라, A4)
+ * @param {string} type      - 파형 종류. 'sine' | 'square' | 'sawtooth' | 'triangle'
+ * @param {number} duration  - 재생 시간 (초). 예: 0.3
+ */
+function playBeep(frequency, type, duration) {
+  const context   = getAudioContext();
+  const oscillator = context.createOscillator();
+  const gainNode   = context.createGain();
+
+  // 오실레이터 설정
+  oscillator.type      = type;
+  oscillator.frequency.setValueAtTime(frequency, context.currentTime);
+
+  // 음량: 즉시 1.0으로 시작, 재생 종료 시점에 0으로 서서히 감소 (클릭 잡음 방지)
+  gainNode.gain.setValueAtTime(1.0, context.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
+
+  // 연결: 오실레이터 → 게인 → 출력
+  oscillator.connect(gainNode);
+  gainNode.connect(context.destination);
+
+  // 재생 시작 및 종료 예약
+  oscillator.start(context.currentTime);
+  oscillator.stop(context.currentTime + duration);
+}
+
 /**
  * 길이 단위를 기준 단위(m, 미터)로 변환하는 계수 테이블
  * 각 값은 해당 단위 1단위 = 몇 미터인지를 나타냄
@@ -269,9 +323,28 @@ function handleConvert(category) {
 }
 
 /**
- * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다
+ * DOM이 완전히 로드된 후 각 카테고리의 버튼 클릭 및 Enter 키 이벤트를 등록한다.
+ * 동물 소리 버튼 이벤트도 함께 등록한다.
  */
 document.addEventListener('DOMContentLoaded', function () {
+  // ── 동물 소리 버튼 이벤트 등록 ──
+  // animal-btn-1: 거북이 버튼 → 440Hz sine 파형 비프음 (0.3초)
+  const animalButton1 = document.getElementById('animal-btn-1');
+  if (animalButton1) {
+    animalButton1.addEventListener('click', function () {
+      playBeep(440, 'sine', 0.3);
+    });
+  }
+
+  // animal-btn-2: 여우 버튼 → 660Hz square 파형 비프음 (0.3초)
+  // 첫 번째 버튼과 주파수(440→660)·파형(sine→square)이 달라 음색이 구분된다
+  const animalButton2 = document.getElementById('animal-btn-2');
+  if (animalButton2) {
+    animalButton2.addEventListener('click', function () {
+      playBeep(660, 'square', 0.3);
+    });
+  }
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
