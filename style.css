@@ -341,3 +341,16 @@ body {
   background: linear-gradient(135deg, #0d3b12, #1b5e20);
   transform: scale(0.97);
 }
+
+.animal-button-eleventh {
+  background: linear-gradient(135deg, #4a148c, #7b1fa2);
+}
+
+.animal-button-eleventh:hover {
+  background: linear-gradient(135deg, #38006b, #6a1b9a);
+}
+
+.animal-button-eleventh:active {
+  background: linear-gradient(135deg, #260048, #4a148c);
+  transform: scale(0.97);
+}
