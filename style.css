@@ -257,3 +257,17 @@ body {
   background-color: #6a1b9a;
   transform: scale(0.97);
 }
+
+/* 다섯 번째 동물 버튼: 붉은 계열로 기존 네 개(초록·주황·청록·보라)와 시각적으로 구분 */
+.animal-button-fifth {
+  background-color: #e53935;
+}
+
+.animal-button-fifth:hover {
+  background-color: #c62828;
+}
+
+.animal-button-fifth:active {
+  background-color: #b71c1c;
+  transform: scale(0.97);
+}
