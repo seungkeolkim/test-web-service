@@ -229,3 +229,17 @@ body {
   background-color: #e65100;
   transform: scale(0.97);
 }
+
+/* 세 번째 동물 버튼: 청록 계열로 첫 번째(초록)·두 번째(주황)와 시각적으로 구분 */
+.animal-button-new {
+  background-color: #00838f;
+}
+
+.animal-button-new:hover {
+  background-color: #006978;
+}
+
+.animal-button-new:active {
+  background-color: #005662;
+  transform: scale(0.97);
+}

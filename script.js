@@ -345,6 +345,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // animal-btn-3: 돌고래 버튼 → 880Hz triangle 파형 비프음 (0.3초)
+  // 기존 sine(440Hz)·square(660Hz)와 파형(triangle)·주파수(880Hz) 모두 달라 확실히 구분된다
+  const animalButton3 = document.getElementById('animal-btn-3');
+  if (animalButton3) {
+    animalButton3.addEventListener('click', function () {
+      playBeep(880, 'triangle', 0.3);
+    });
+  }
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
