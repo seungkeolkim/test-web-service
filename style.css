@@ -327,3 +327,17 @@ body {
   background-color: #7b2208;
   transform: scale(0.97);
 }
+
+/* 열 번째 동물 버튼: 에메랄드 그린(emerald green) 계열로 기존 아홉 개와 시각적으로 구분 */
+.animal-button-tenth {
+  background: linear-gradient(135deg, #1b5e20, #388e3c);
+}
+
+.animal-button-tenth:hover {
+  background: linear-gradient(135deg, #145214, #2e7d32);
+}
+
+.animal-button-tenth:active {
+  background: linear-gradient(135deg, #0d3b12, #1b5e20);
+  transform: scale(0.97);
+}
