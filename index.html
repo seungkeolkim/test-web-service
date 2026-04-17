@@ -234,7 +234,52 @@
       </div>
     </section>
 
+    <!-- 곱셈 계산기 트리거 섹션 -->
+    <section class="converter-section" id="section-multiply">
+      <h2 class="section-title">✖️ 곱셈 계산기</h2>
+      <div class="converter-form">
+        <button class="multiply-trigger-button" id="multiply-trigger">곱셈 계산기 열기</button>
+      </div>
+    </section>
+
   </main>
+
+  <!-- 곱셈 계산기 모달 오버레이 (기본 숨김) -->
+  <div class="modal-overlay" id="multiply-modal" hidden>
+    <div class="modal-content">
+      <h2 class="modal-title">✖️ 곱셈 계산기</h2>
+      <div class="modal-body">
+        <div class="modal-inputs">
+          <div class="modal-input-group">
+            <label for="multiply-input-a" class="modal-label">첫 번째 숫자</label>
+            <input
+              type="number"
+              id="multiply-input-a"
+              class="value-input modal-number-input"
+              placeholder="숫자 입력"
+              step="any"
+            />
+          </div>
+          <span class="modal-multiply-sign">×</span>
+          <div class="modal-input-group">
+            <label for="multiply-input-b" class="modal-label">두 번째 숫자</label>
+            <input
+              type="number"
+              id="multiply-input-b"
+              class="value-input modal-number-input"
+              placeholder="숫자 입력"
+              step="any"
+            />
+          </div>
+        </div>
+        <button class="convert-button modal-calc-button" id="multiply-calc-button">계산</button>
+        <div class="modal-output-area" id="multiply-output"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-confirm-button" id="multiply-confirm-button">확인</button>
+      </div>
+    </div>
+  </div>
 
   <!-- 변환 로직 및 DOM 이벤트 바인딩 -->
   <script src="script.js"></script>

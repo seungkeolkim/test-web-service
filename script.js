@@ -552,6 +552,93 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // ── 곱셈 계산기 모달 이벤트 등록 ──
+  const multiplyModal         = document.getElementById('multiply-modal');
+  const multiplyTriggerButton = document.getElementById('multiply-trigger');
+  const multiplyCalcButton    = document.getElementById('multiply-calc-button');
+  const multiplyConfirmButton = document.getElementById('multiply-confirm-button');
+  const multiplyInputA        = document.getElementById('multiply-input-a');
+  const multiplyInputB        = document.getElementById('multiply-input-b');
+  const multiplyOutput        = document.getElementById('multiply-output');
+
+  /**
+   * 곱셈 모달을 열고 초기 상태로 리셋한다.
+   * 이전 계산 결과와 입력값을 모두 비운다.
+   */
+  function openMultiplyModal() {
+    multiplyInputA.value    = '';
+    multiplyInputB.value    = '';
+    multiplyOutput.textContent = '';
+    multiplyOutput.className   = 'modal-output-area';
+    multiplyCalcButton.disabled = false;
+    multiplyModal.hidden = false;
+  }
+
+  /**
+   * 곱셈 모달을 닫고 상태를 초기화한다.
+   * 다음 오픈 시 깨끗한 상태가 되도록 입력값과 출력값을 모두 비운다.
+   */
+  function closeMultiplyModal() {
+    multiplyModal.hidden = true;
+    multiplyInputA.value    = '';
+    multiplyInputB.value    = '';
+    multiplyOutput.textContent = '';
+    multiplyOutput.className   = 'modal-output-area';
+    multiplyCalcButton.disabled = false;
+  }
+
+  /**
+   * 두 입력값을 읽어 5초 후 곱셈 결과를 출력 영역에 표시한다.
+   * 대기 중에는 계산 버튼을 비활성화하고 '계산 중...' 텍스트를 표시한다.
+   * 입력값이 숫자가 아닌 경우 즉시 오류 메시지를 표시한다.
+   */
+  function handleMultiplyCalc() {
+    const valueA = Number(multiplyInputA.value);
+    const valueB = Number(multiplyInputB.value);
+
+    // 빈 입력 또는 NaN 검증
+    if (multiplyInputA.value.trim() === '' || multiplyInputB.value.trim() === '' ||
+        isNaN(valueA) || isNaN(valueB)) {
+      multiplyOutput.textContent = '두 숫자를 모두 입력해주세요.';
+      multiplyOutput.className   = 'modal-output-area output-error';
+      return;
+    }
+
+    // 5초 대기 동안 버튼 비활성화 및 안내 텍스트 표시
+    multiplyCalcButton.disabled = true;
+    multiplyOutput.textContent = '계산 중...';
+    multiplyOutput.className   = 'modal-output-area output-pending';
+
+    setTimeout(function () {
+      const result = valueA * valueB;
+      multiplyOutput.textContent = valueA + ' × ' + valueB + ' = ' + result;
+      multiplyOutput.className   = 'modal-output-area';
+      multiplyCalcButton.disabled = false;
+    }, 5000);
+  }
+
+  if (multiplyTriggerButton) {
+    multiplyTriggerButton.addEventListener('click', openMultiplyModal);
+  }
+
+  if (multiplyCalcButton) {
+    multiplyCalcButton.addEventListener('click', handleMultiplyCalc);
+  }
+
+  if (multiplyConfirmButton) {
+    multiplyConfirmButton.addEventListener('click', closeMultiplyModal);
+  }
+
+  // 오버레이 바깥 영역(배경) 클릭 시 모달 닫기
+  if (multiplyModal) {
+    multiplyModal.addEventListener('click', function (event) {
+      // 클릭 대상이 오버레이 자체(배경)일 때만 닫음
+      if (event.target === multiplyModal) {
+        closeMultiplyModal();
+      }
+    });
+  }
+
   const categories = ['length', 'weight', 'volume', 'temperature', 'speed', 'area', 'dataSize'];
 
   categories.forEach(function (category) {
