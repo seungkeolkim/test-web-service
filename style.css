@@ -299,3 +299,17 @@ body {
   background-color: #00332b;
   transform: scale(0.97);
 }
+
+/* 여덟 번째 동물 버튼: 인디고(indigo) 계열로 기존 일곱 개와 시각적으로 구분 */
+.animal-button-eighth {
+  background-color: #283593;
+}
+
+.animal-button-eighth:hover {
+  background-color: #1a237e;
+}
+
+.animal-button-eighth:active {
+  background-color: #0d1457;
+  transform: scale(0.97);
+}
