@@ -367,3 +367,16 @@ body {
   background: linear-gradient(135deg, #5c0000, #b71c1c);
   transform: scale(0.97);
 }
+
+.animal-button-thirteenth {
+  background: linear-gradient(135deg, #006064, #00acc1);
+}
+
+.animal-button-thirteenth:hover {
+  background: linear-gradient(135deg, #004d40, #00838f);
+}
+
+.animal-button-thirteenth:active {
+  background: linear-gradient(135deg, #00363a, #006064);
+  transform: scale(0.97);
+}
