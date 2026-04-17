@@ -271,3 +271,17 @@ body {
   background-color: #b71c1c;
   transform: scale(0.97);
 }
+
+/* 여섯 번째 동물 버튼: 남색(indigo) 계열로 기존 다섯 개(초록·주황·청록·보라·붉은)와 시각적으로 구분 */
+.animal-button-sixth {
+  background-color: #283593;
+}
+
+.animal-button-sixth:hover {
+  background-color: #1a237e;
+}
+
+.animal-button-sixth:active {
+  background-color: #0d1466;
+  transform: scale(0.97);
+}
