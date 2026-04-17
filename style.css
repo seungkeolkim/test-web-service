@@ -285,3 +285,17 @@ body {
   background-color: #0d1466;
   transform: scale(0.97);
 }
+
+/* 일곱 번째 동물 버튼: 황록색(teal-green) 계열로 기존 여섯 개와 시각적으로 구분 */
+.animal-button-seventh {
+  background-color: #00695c;
+}
+
+.animal-button-seventh:hover {
+  background-color: #004d40;
+}
+
+.animal-button-seventh:active {
+  background-color: #00332b;
+  transform: scale(0.97);
+}
