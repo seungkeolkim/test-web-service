@@ -313,3 +313,17 @@ body {
   background-color: #0d1457;
   transform: scale(0.97);
 }
+
+/* 아홉 번째 동물 버튼: 딥 오렌지(deep orange) 계열로 기존 여덟 개와 시각적으로 구분 */
+.animal-button-ninth {
+  background-color: #bf360c;
+}
+
+.animal-button-ninth:hover {
+  background-color: #9d2c0a;
+}
+
+.animal-button-ninth:active {
+  background-color: #7b2208;
+  transform: scale(0.97);
+}
