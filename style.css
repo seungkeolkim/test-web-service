@@ -380,3 +380,17 @@ body {
   background: linear-gradient(135deg, #00363a, #006064);
   transform: scale(0.97);
 }
+
+/* 14번째 동물 버튼: 보라/마젠타 계열 */
+.animal-button-fourteenth {
+  background: linear-gradient(135deg, #6a1b9a, #e91e63);
+}
+
+.animal-button-fourteenth:hover {
+  background: linear-gradient(135deg, #4a148c, #c2185b);
+}
+
+.animal-button-fourteenth:active {
+  background: linear-gradient(135deg, #38006b, #880e4f);
+  transform: scale(0.97);
+}
