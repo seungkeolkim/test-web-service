@@ -243,3 +243,17 @@ body {
   background-color: #005662;
   transform: scale(0.97);
 }
+
+/* 네 번째 동물 버튼: 보라/핑크 계열로 기존 세 개(초록·주황·청록)와 시각적으로 구분 */
+.animal-button-random {
+  background-color: #8e24aa;
+}
+
+.animal-button-random:hover {
+  background-color: #7b1fa2;
+}
+
+.animal-button-random:active {
+  background-color: #6a1b9a;
+  transform: scale(0.97);
+}
