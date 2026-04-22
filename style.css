@@ -559,3 +559,104 @@ body {
   background: linear-gradient(135deg, #38006b, #880e4f);
   transform: scale(0.97);
 }
+
+/* ===================================================
+   빌드 태그 푸터
+   =================================================== */
+.build-tag {
+  text-align: center;
+  margin-top: 48px;
+  padding: 16px 20px;
+  font-size: 0.75rem;
+  color: #999;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* ===================================================
+   반응형 디자인: 모바일 기기
+   =================================================== */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 16px 40px;
+  }
+
+  .site-header {
+    margin-bottom: 24px;
+    padding: 16px 20px;
+  }
+
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .site-description {
+    font-size: 0.85rem;
+  }
+
+  .converter-container {
+    gap: 16px;
+  }
+
+  .converter-section {
+    padding: 20px 16px;
+  }
+
+  .section-title {
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+
+  .converter-form {
+    gap: 8px;
+  }
+
+  .value-input {
+    width: 100px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .unit-select {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    background-position: right 8px center;
+    padding-right: 28px;
+  }
+
+  .arrow-label {
+    font-size: 0.95rem;
+  }
+
+  .convert-button,
+  .animal-button,
+  .multiply-trigger-button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .result-display {
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    padding: 24px 20px;
+    max-width: 90%;
+    gap: 16px;
+  }
+
+  .modal-inputs {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-multiply-sign {
+    font-size: 1.2rem;
+    padding-bottom: 4px;
+  }
+
+  .build-tag {
+    margin-top: 32px;
+    font-size: 0.7rem;
+  }
+}
