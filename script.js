@@ -70,6 +70,7 @@ const LENGTH_TO_METER = {
   inch: 0.0254,
   feet: 0.3048,
   mile: 1609.344,
+  yard: 0.9144,
 };
 
 /**
