@@ -553,6 +553,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // animal-btn-15: 고래 버튼 → 클릭할 때마다 주파수·파형·지속시간이 랜덤으로 달라지는 비프음
+  const animalButton15 = document.getElementById('animal-btn-15');
+  if (animalButton15) {
+    animalButton15.addEventListener('click', function () {
+      /**
+       * 매 클릭마다 세 값을 새로 뽑아 playBeep에 전달한다.
+       * - 주파수: 200~1200Hz 사이 정수
+       * - 파형: sine / square / triangle / sawtooth 중 하나
+       * - 지속시간: 0.15~0.5초 사이 값
+       */
+      const randomFrequency = Math.floor(Math.random() * (1200 - 200 + 1)) + 200;
+      const waveformTypes   = ['sine', 'square', 'triangle', 'sawtooth'];
+      const randomWaveform  = waveformTypes[Math.floor(Math.random() * waveformTypes.length)];
+      const randomDuration  = Math.random() * (0.5 - 0.15) + 0.15;
+      playBeep(randomFrequency, randomWaveform, randomDuration);
+    });
+  }
+
   // ── 곱셈 계산기 모달 이벤트 등록 ──
   const multiplyModal         = document.getElementById('multiply-modal');
   const multiplyTriggerButton = document.getElementById('multiply-trigger');

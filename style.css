@@ -546,6 +546,21 @@ body {
   transform: scale(0.97);
 }
 
+/* 15번째 동물 버튼: 보라색(purple) 계열 */
+.animal-button-fifteenth {
+  background: linear-gradient(135deg, #7b1fa2, #ba68c8);
+  color: #fff;
+}
+
+.animal-button-fifteenth:hover {
+  background: linear-gradient(135deg, #6a1b9a, #9c27b0);
+}
+
+.animal-button-fifteenth:active {
+  background: linear-gradient(135deg, #4a148c, #7b1fa2);
+  transform: scale(0.97);
+}
+
 /* 14번째 동물 버튼: 보라/마젠타 계열 */
 .animal-button-fourteenth {
   background: linear-gradient(135deg, #6a1b9a, #e91e63);
