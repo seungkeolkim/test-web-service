@@ -19,7 +19,7 @@
 - **파일 구조**: `index.html` (UI 마크업) / `style.css` (스타일) / `script.js` (변환 로직 + DOM 이벤트) / `run.sh` (로컬 서버 실행)
 - **변환 로직 패턴**: 선형 단위는 `{카테고리}_TO_{기준단위}` 상수 테이블을 통해 "→ 기준 단위 → 목표 단위"로 2단계 변환. 온도는 비선형이므로 `convertTemperature()` 함수로 분리 처리 (°C를 중간 단위로 경유)
 - **DOM ID 규칙**: `{category}-input`, `{category}-from`, `{category}-to`, `{category}-button`, `{category}-result` 패턴으로 일관 적용
-- **배경**: 고정 CSS 배경색(`#f0f2f5`) 사용. 배경 이미지 기능 없음
+- **배경**: `DOMContentLoaded` 시 `assets/backgrounds/` 내 후보 이미지 배열에서 균등 확률로 한 장을 선택해 `document.body.style.backgroundImage`로 적용. CSS `background-size: cover` / `background-attachment: fixed`. 기존 `#f0f2f5`는 이미지 로드 실패 시 폴백 색상으로 유지
 - **비프음 유틸리티**: `playBeep(frequency, type, duration)` + lazy `getAudioContext()` 패턴으로 Web Audio API 캡슐화. AudioContext는 브라우저 autoplay 정책으로 인해 최초 사용자 인터랙션 시점에 생성
 - **랜덤 비프음 패턴**: 버튼별로 고정 파라미터 대신 클릭 시마다 주파수(200~1200Hz)·파형(sine/square/triangle/sawtooth)·지속시간(0.15~0.5s)을 난수로 결정해 `playBeep()`에 전달하는 방식 도입 (00155 부엉이 버튼부터 적용)
 - **모달 패턴**: 페이지 최하단에 트리거 버튼 → `hidden` 속성 토글 방식의 인라인 모달. 열기 시 입력/출력 상태 초기화, 닫기(`확인` 버튼)도 동일하게 초기화. 비동기 계산(setTimeout 5초)은 대기 중 버튼 비활성화로 중복 제출 방지
@@ -47,6 +47,7 @@
 
 ## 최근 변경 이력
 
+- [00195] 페이지 로드 시 두 배경 이미지(harbor, bus-terminal) 중 하나를 랜덤 선택해 배경화면 적용 — 2026-04-30
 - [00194] 열다섯 번째 동물 버튼(보라색) 추가 및 클릭마다 변하는 랜덤 비프음 연결 — 2026-04-29
 - [00193] 길이 변환에 yard(야드) 단위 추가 — 2026-04-23
 - [00179] 파이프라인 스모크 테스트용 더미 변경 (index.html 주석 3줄) — 2026-04-21
@@ -56,6 +57,5 @@
 - [00165] 열두 번째 동물 버튼 추가 및 랜덤 비프음 연결 — 2026-04-17
 - [00164] 열한 번째 동물 버튼 추가 및 랜덤 비프음 연결 — 2026-04-17
 - [00163] 열 번째 동물 버튼 추가 및 랜덤 비프음 연결 — 2026-04-17
-- [00162] 아홉 번째 동물 버튼 추가 및 랜덤 비프음 연결 — 2026-04-17
 
 
