@@ -5,7 +5,8 @@
 # 포트 지정: PORT=3000 ./run.sh
 
 # 기본 포트 설정 (환경변수 PORT로 오버라이드 가능)
-PORT=${PORT:-8080}
+PORT=${PORT:-8180}
+#PORT=${PORT:-8080}
 
 # Python3 설치 여부 확인
 if ! command -v python3 &>/dev/null; then

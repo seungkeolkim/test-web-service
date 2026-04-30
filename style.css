@@ -12,7 +12,11 @@
 
 body {
   font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
-  background-color: #f0f2f5;
+  background-color: #f0f2f5; /* 이미지 로드 실패 시 폴백 색상 */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #333;
   min-height: 100vh;
   padding: 40px 20px 60px;
