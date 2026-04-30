@@ -328,6 +328,18 @@ function handleConvert(category) {
  * 동물 소리 버튼 이벤트도 함께 등록한다.
  */
 document.addEventListener('DOMContentLoaded', function () {
+  // ── 페이지 로드 시 배경 이미지 랜덤 선택 ──
+  // 새로고침할 때마다 두 이미지 중 하나를 균등 확률로 선택하여 body 배경으로 적용
+  (function applyRandomBackgroundImage() {
+    const backgroundCandidates = [
+      'assets/backgrounds/harbor.jpg',
+      'assets/backgrounds/bus-terminal.jpg',
+    ];
+    const chosenIndex = Math.floor(Math.random() * backgroundCandidates.length);
+    const chosenImagePath = backgroundCandidates[chosenIndex];
+    document.body.style.backgroundImage = 'url(' + chosenImagePath + ')';
+  })();
+
   // ── 동물 소리 버튼 이벤트 등록 ──
   // animal-btn-1: 거북이 버튼 → 440Hz sine 파형 비프음 (0.3초)
   const animalButton1 = document.getElementById('animal-btn-1');
